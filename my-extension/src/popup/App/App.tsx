@@ -138,7 +138,7 @@ console.log(currentTime);
    </div>
       <div className='absolute bottom-0 flex text-center mx-auto px-auto mb-[5vh] justify-center items-center flex-col'>
   <p>Focus mode ON means, blocking distracting websites. Click here to read about which websites are blocked or to add more websites.</p>
-  <p className='mt-[2vh]'>Leave a ⭐️ on GitHub</p>
+  <a href='https://github.com/pritipsingh/The-Productive-Champion' className='mt-[2vh]'>Leave a ⭐️ on GitHub</a>
 </div>
     </div>
   );
