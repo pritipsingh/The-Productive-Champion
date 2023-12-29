@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import logomain from './logomain1.png'
+import { eventNames } from 'process';
 function App() {
 
   const [isChecked, setIsChecked] = useState<boolean>(JSON.parse(localStorage.getItem('isChecked')!) || false);
@@ -52,19 +53,53 @@ function App() {
     console.log("hiiii........")
   })
 
+  const data = {
+    isFocusTime,
+    isChecked
+  }
+  chrome.runtime.sendMessage({event: 'onStart', data});
+//   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+//     chrome.tabs.sendMessage(tabs[0].id as any, { message: data }, function (response) {
+//         console.log("Response from content script:", response);
+//     });
+// });
+
   useEffect(() => {
     // Initial check
-    handleFocusTime();
-
-    // Set up an interval to check and update every minute
+    handleFocusTime()
+    const data = {
+      isFocusTime,
+      isChecked
+    }
+    // chrome.runtime.sendMessage({event: 'onStart', data});
+    
+    // chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    //   console.log("my tabsss" ,tabs);
+    //   if (tabs && tabs.length > 0){
+    //   chrome.tabs.sendMessage(tabs[0].id as any, { message: data }, function (response) {
+    //       console.log("Response from content script:", response);
+    //   });
+    //   }
+      
+  // });
     const intervalId = setInterval(() => {
       console.log("every min check check....");
       handleFocusTime();
+      const data = {
+        isFocusTime,
+        isChecked
+      }
+      // chrome.runtime.sendMessage({event: 'onStart', data});
+    //   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    //     chrome.tabs.sendMessage(tabs[0].id as any, { message: data }, function (response) {
+    //         console.log("Response from content script:", response);
+    //     });
+    // });
     }, 60000); // 60000 milliseconds = 1 minute
 
     // Clear the interval on component unmount
     return () => clearInterval(intervalId);
-  }, [startTime, endTime]); 
+  }, [startTime, endTime, isFocusTime, isChecked]); 
    
   console.log("my time of focussss" ,isFocusTime);
   const now = new Date();

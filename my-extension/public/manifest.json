@@ -5,17 +5,12 @@
   "description": "A simple Chrome extension.",
   
   "background": {
-    "service_worker": "./static/js/background.js"
-  },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["./static/js/content.js"]
-    }
-  ],
+    "service_worker": "./static/js/background.js"  },
+  
   "action": {
     "default_popup": "index.html",
     "default_icon" : "logo1.png"
   },
-  "permissions": ["storage", "tabs", "activeTab"]
+  "permissions": ["storage", "tabs", "activeTab", "scripting"],
+  "host_permissions": ["<all_urls>"]
 }
