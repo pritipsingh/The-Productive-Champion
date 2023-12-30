@@ -32,11 +32,17 @@ export const value = chrome.runtime.onMessage.addListener((data) => {
     chrome.tabs.get(tab.tabId , (currenTabData) => {
         // console.log(currenTabData)
      
-
-    for (const name of websitesToBlock) {
-       
-      if (currenTabData.url?.includes(name)) {
-        console.log("needto");
+        if (currenTabData.url && currenTabData.url.startsWith("chrome-extension://")) {
+            console.log("Extension popup is active, no need to inject content script.");
+            return;
+          }
+          chrome.storage.local.get(["isChecked"]).then((result) => {
+            console.log("Value currently is - isChecked" + JSON.parse(result.isChecked));
+            if(JSON.parse(result.isChecked)){
+                 for (const name of websitesToBlock) {
+       console.log(name)
+      if (currenTabData.url &&  currenTabData.url?.includes(name) && !currenTabData.url.startsWith("chrome-extension://")) {
+        console.log("needto", name);
       chrome.scripting.executeScript({
         target: { tabId: currenTabData.id as any },
         files: ['static/js/content.js'],
@@ -49,18 +55,21 @@ export const value = chrome.runtime.onMessage.addListener((data) => {
     }
 
 }
+            }
+          });
+   
 
   })
 
 })
 //   chrome.tabs.onActivated.addListener(function(tab){
 //   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-//     // chrome.storage.local.get(["isChecked"]).then((result) => {
-//     //     console.log("Value currently is " + JSON.parse(result.isChecked));
-//     //     chrome.tabs.sendMessage(tabs[0].id as any, { isChecked: JSON.parse(result.isChecked) }, function (response) {
-//     //         console.log("Response from content script:", response);
-//     //     });
-//     //   });
+    // chrome.storage.local.get(["isChecked"]).then((result) => {
+    //     console.log("Value currently is " + JSON.parse(result.isChecked));
+    //     chrome.tabs.sendMessage(tabs[0].id as any, { isChecked: JSON.parse(result.isChecked) }, function (response) {
+    //         console.log("Response from content script:", response);
+    //     });
+    //   });
 //     // const intervalId = setInterval(() => { 
 //         console.log(tabs[0]);
 //  chrome.tabs.sendMessage(tabs[0].id as any, { message: "msg from bg" }, function (response) {
