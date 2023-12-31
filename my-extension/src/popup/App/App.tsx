@@ -33,21 +33,9 @@ function App() {
   };
 
   const handleFocusTime = () => {
-    const now = new Date();
-    const currentHours = now.getHours();
-    const currentMinutes = now.getMinutes();
-
-    const currentTime = `${currentHours}:${currentMinutes}`;
-
-    localStorage.setItem('startTime', startTime);
+   
+     localStorage.setItem('startTime', startTime);
     localStorage.setItem('endTime', endTime);
-    if (currentTime <= endTime && currentTime >= startTime){
-      setFocusTime(true);
-      localStorage.setItem('isFocusTime', JSON.stringify(true));
-    }else{
-      setFocusTime(false)
-      localStorage.setItem('isFocusTime', JSON.stringify(false));
-    }
   }
   useEffect(() => {
     console.log("hiiii........")
@@ -55,6 +43,8 @@ function App() {
 
   const data = {
     isFocusTime,
+    startTime,
+    endTime,
     isChecked
   }
   chrome.runtime.sendMessage({event: 'onStart', data});
