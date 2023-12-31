@@ -16,19 +16,12 @@ function App() {
 
   const handleStartTimeChange = (event : any) => {
    
-    const now = new Date();
-    console.log("right now date" ,now)
-    console.log("the new event" ,event)
-  const currentHours = now.getHours();
-  const currentMinutes = now.getMinutes();
-  console.log("right now", currentHours)
-  console.log("right now", currentMinutes)
     setStartTime(event.target.value);
   };
 
   // Event handler for changes in end time input
   const handleEndTimeChange = (event : any) => {
-    console.log(event)
+
     setEndTime(event.target.value);
   };
 
@@ -37,10 +30,6 @@ function App() {
      localStorage.setItem('startTime', startTime);
     localStorage.setItem('endTime', endTime);
   }
-  useEffect(() => {
-    console.log("hiiii........")
-  })
-
   const data = {
     isFocusTime,
     startTime,
@@ -48,60 +37,18 @@ function App() {
     isChecked
   }
   chrome.runtime.sendMessage({event: 'onStart', data});
-//   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-//     chrome.tabs.sendMessage(tabs[0].id as any, { message: data }, function (response) {
-//         console.log("Response from content script:", response);
-//     });
-// });
 
-  useEffect(() => {
-    // Initial check
-    handleFocusTime()
-    const data = {
-      isFocusTime,
-      isChecked
-    }
-    // chrome.runtime.sendMessage({event: 'onStart', data});
-    
-    // chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    //   console.log("my tabsss" ,tabs);
-    //   if (tabs && tabs.length > 0){
-    //   chrome.tabs.sendMessage(tabs[0].id as any, { message: data }, function (response) {
-    //       console.log("Response from content script:", response);
-    //   });
-    //   }
-      
-  // });
-    const intervalId = setInterval(() => {
-      console.log("every min check check....");
-      handleFocusTime();
-      const data = {
-        isFocusTime,
-        isChecked
-      }
-      // chrome.runtime.sendMessage({event: 'onStart', data});
-    //   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    //     chrome.tabs.sendMessage(tabs[0].id as any, { message: data }, function (response) {
-    //         console.log("Response from content script:", response);
-    //     });
-    // });
-    }, 60000); // 60000 milliseconds = 1 minute
 
-    // Clear the interval on component unmount
-    return () => clearInterval(intervalId);
-  }, [startTime, endTime, isFocusTime, isChecked]); 
-   
-  console.log("my time of focussss" ,isFocusTime);
-  const now = new Date();
-    const currentHours = now.getHours();
-    const currentMinutes = now.getMinutes();
+const handleReset = () => {
+  localStorage.setItem('startTime', '');
+    localStorage.setItem('endTime', '');
+}
 
-    const currentTime = `${currentHours}:${currentMinutes}`;
-console.log(currentTime);
-    console.log(typeof currentTime, typeof startTime)
-  console.log("startinggggg" ,startTime , endTime);
-  console.log("right now", currentHours)
-  console.log("right now", currentMinutes)
+const now = new Date();
+const currentHours = now.getHours();
+const currentMinutes = now.getMinutes();
+
+const currentTime = `${currentHours}:${currentMinutes}`;
   return (
     <div className="h-[100vh] relative mx-auto px-auto">
    <div className='mx-auto flex justify-center items-center w-[32%] text-center h-[15%]'>
@@ -165,12 +112,21 @@ The toggle for Focs hour */}
       <div className='flex justify-center items-center mt-[5vh]'>
     
       <button onClick={handleFocusTime} type="button" className="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Save Your Focus Hours</button>
+
+
+      {/* Reset Button for interval */}
+      <button onClick={handleReset} type="button" className="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Reset Time Interval</button>
+
       </div>
       <div className='flex justify-center items-center mt-[3vh]'>
     {(startTime <= currentTime && endTime >= currentTime) ? <p className='text-[0.5rem]'>You're in focus mode currently</p>  : null}
    </div>
 
-{/* Reset Button for interval */}
+
+
+
+    {/* Footer */}
+
 
 
       <div className='absolute bottom-0 flex text-center mx-auto px-auto mb-[5vh] justify-center items-center flex-col'>
