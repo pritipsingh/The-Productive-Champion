@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "My Extension",
-  "version": "1.0.0",
-  "description": "A simple Chrome extension.",
+  "name": "The Productive Champion",
+  "version": "1.0.1",
+  "description": "Use this to set your focus hours instantly and block out all your social medias. More modes like ADHD and all coming soon",
   
   "background": {
     "service_worker": "./static/js/background.js"  },

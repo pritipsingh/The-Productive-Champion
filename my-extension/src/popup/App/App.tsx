@@ -110,6 +110,10 @@ console.log(currentTime);
    <div className='flex justify-center items-center mt-[2vh]'>
       <p className='text-[1rem] text-center text-gray-700 underline'>Focus Hours ON until it's on</p>
     </div>
+
+{/* 
+The toggle for Focs hour */}
+
    <div className='flex justify-center items-center mt-[2vh]'>
     
    <label htmlFor="toggle" className="cursor-pointer align-middle">
@@ -135,7 +139,11 @@ console.log(currentTime);
       </label>
       <span className="ml-2 text-sm font-semibold">{isChecked ? 'On' : 'Off'}</span>
    </div>
+
+   {/*  */}
   
+
+  {/* The time interval for setting focus hours */}
    <p className='text-[1rem] text-gray-700 flex justify-center items-center underline mt-[8vh]'>Set Your Focus Hours</p>
       <header className="mt-[2vh] flex gap-2 justify-center items-center">
 
@@ -159,11 +167,15 @@ console.log(currentTime);
       <button onClick={handleFocusTime} type="button" className="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Save Your Focus Hours</button>
       </div>
       <div className='flex justify-center items-center mt-[3vh]'>
-    {isFocusTime ? <p className='text-[0.5rem]'>You're in focus mode currently</p>  : null}
+    {(startTime <= currentTime && endTime >= currentTime) ? <p className='text-[0.5rem]'>You're in focus mode currently</p>  : null}
    </div>
+
+{/* Reset Button for interval */}
+
+
       <div className='absolute bottom-0 flex text-center mx-auto px-auto mb-[5vh] justify-center items-center flex-col'>
-  <p>Focus mode ON means, blocking distracting websites. Click here to read about which websites are blocked or to add more websites.</p>
-  <a href='https://github.com/pritipsingh/The-Productive-Champion' className='mt-[2vh]'>Leave a ⭐️ on GitHub</a>
+  <p>Focus mode ON means, blocking distracting websites. <a href='https://github.com/pritipsingh/The-Productive-Champion'><span> Click here</span> to read about which websites are blocked or to add more websites.</a></p>
+  <a href='https://github.com/pritipsingh/The-Productive-Champion' className='mt-[2vh] underline'>Leave a ⭐️ on GitHub</a>
 </div>
     </div>
   );
