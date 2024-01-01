@@ -14,12 +14,15 @@ Before you start contributing, please make sure you have the latest version of t
 2. Do :
    ```
    cd my-extention
+   yarn install
    yarn build
 4. Open Google Chrome and go to `chrome://extensions/`.
 
 5. Enable "Developer mode" at the top-right corner.
 
 6. Click on "Load unpacked" and select the folder containing the extension files.
+
+   (Note: it's the build folder)
 
 ### Reporting Bugs
 
