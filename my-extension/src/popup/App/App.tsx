@@ -6,7 +6,6 @@ function App() {
   const [isChecked, setIsChecked] = useState<boolean>(JSON.parse(localStorage.getItem('isChecked')!) || false);
   const [startTime, setStartTime] = useState(localStorage.getItem('startTime') || '');
   const [endTime, setEndTime] = useState(localStorage.getItem('endTime') || '');
-  const [isFocusTime, setFocusTime] = useState(JSON.parse(localStorage.getItem('isFocusTime')!) || false);
   const handleToggle = () => {
     setIsChecked(!isChecked);
     console.log("value of check" , isChecked);
@@ -29,9 +28,11 @@ function App() {
    
      localStorage.setItem('startTime', startTime);
     localStorage.setItem('endTime', endTime);
+ 
+
   }
   const data = {
-    isFocusTime,
+
     startTime,
     endTime,
     isChecked
@@ -40,15 +41,16 @@ function App() {
 
 
 const handleReset = () => {
+
+  setStartTime('');
+  setEndTime('');
   localStorage.setItem('startTime', '');
     localStorage.setItem('endTime', '');
+  
 }
 
 const now = new Date();
-const currentHours = now.getHours();
-const currentMinutes = now.getMinutes();
-
-const currentTime = `${currentHours}:${currentMinutes}`;
+const currentTime = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
   return (
     <div className="h-[100vh] relative mx-auto px-auto">
    <div className='mx-auto flex justify-center items-center w-[32%] text-center h-[15%]'>
@@ -111,15 +113,20 @@ The toggle for Focs hour */}
       </header>
       <div className='flex justify-center items-center mt-[5vh]'>
     
-      <button onClick={handleFocusTime} type="button" className="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Save Your Focus Hours</button>
+      <button onClick={handleFocusTime} type="button" className="text-white w-[40vw] bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-xs px-5 py-2.5 text-center me-2 mb-2">Save Your Focus Hours</button>
 
 
       {/* Reset Button for interval */}
-      <button onClick={handleReset} type="button" className="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Reset Time Interval</button>
+      <button onClick={handleReset} type="button" className="text-white w-[40vw] bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-xs px-5 py-2.5 text-center me-2 mb-2">Reset Time Interval</button>
 
       </div>
       <div className='flex justify-center items-center mt-[3vh]'>
-    {(startTime <= currentTime && endTime >= currentTime) ? <p className='text-[0.5rem]'>You're in focus mode currently</p>  : null}
+        {
+          localStorage.getItem('startTime')?.trim().length! >0 && localStorage.getItem('endTime')?.trim().length!  > 0 ?
+           (startTime <= currentTime && endTime >= currentTime) ? <p className='text-[0.5rem]'>You're in focus mode currently</p>  : <p className='text-[0.5rem]'>Focus Mode Starting soon...</p>
+           : null
+        }
+   
    </div>
 
 
