@@ -10,10 +10,15 @@ Before you start contributing, please make sure you have the latest version of t
 
 ## Installation
 
-1. Download the extension files or clone the repository.
+1. Download the extension files 
+   ### or
+ Clone the repository:
+
+```git clone https://github.com/pritipsingh/The-Productive-Champion.git```
+
 2. Do :
    ```
-   cd my-extention
+   cd my-extension
    yarn install
    yarn build
 4. Open Google Chrome and go to `chrome://extensions/`.
