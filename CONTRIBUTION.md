@@ -45,7 +45,7 @@ If you have ideas for new features or improvements, feel free to [open an issue]
 2. Clone your fork to your local machine:
 
    ```bash
-   git clone https://github.com/your-username/FocusBlocker.git
+   git clone https://github.com/your-username/The-Productive-Champion.git
 
 3. Create a new branch for your changes:
    ```
