@@ -137,8 +137,8 @@ The toggle for Focs hour */}
 
 
       <div className='absolute bottom-0 flex text-center mx-auto px-auto mb-[5vh] justify-center items-center flex-col'>
-  <p>Focus mode ON means, blocking distracting websites. <a href='https://github.com/pritipsingh/The-Productive-Champion'><span> Click here</span> to read about which websites are blocked or to add more websites.</a></p>
-  <a href='https://github.com/pritipsingh/The-Productive-Champion' className='mt-[2vh] underline'>Leave a ⭐️ on GitHub</a>
+  <p>Focus mode ON means, blocking distracting websites. <a target="_blank" href='https://github.com/pritipsingh/The-Productive-Champion'><span> Click here</span> to read about which websites are blocked or to add more websites.</a></p>
+  <a target="_blank" href='https://github.com/pritipsingh/The-Productive-Champion' className='mt-[2vh] underline'>Leave a ⭐️ on GitHub</a>
 </div>
     </div>
   );
