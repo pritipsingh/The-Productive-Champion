@@ -47,23 +47,34 @@ If you have ideas for new features or improvements, feel free to [open an issue]
    ```bash
    git clone https://github.com/your-username/The-Productive-Champion.git
 
-3. Create a new branch for your changes:
+3. Change to the repository directory on your computer (if you are not already there):
+
+   ```
+   cd The-Productive-Champion
+
+4. Create a new branch for your changes:
+
    ```
    git checkout -b feature/new-feature
 
-4. Make your changes and commit them:
+5. Add/Update all the changes:
+
+   ```
+   git add .
+
+6. Make your changes and commit them:
 
    ```
    git commit -m "Add new feature"
 
-5. Push your changes to your fork:
+7. Push your changes to your fork:
 
     ```
     git push origin feature/new-feature
 
-6. Open a pull request on the GitHub repository.
+8. Open a pull request on the GitHub repository.
 
-7. Your pull request will be reviewed by the maintainers, and any necessary feedback will be provided.
+9. Your pull request will be reviewed by the maintainers, and any necessary feedback will be provided.
 
 ## License
 
