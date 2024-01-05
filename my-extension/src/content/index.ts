@@ -13,9 +13,6 @@ const websitesToBlock = [
     "hotstar",
     "messenger",
 ];
-console.log("I am the ocntent scripttttt!!!")
-
-
     for (const name of websitesToBlock) {
         if (window.location.hostname.includes(name)) {
             
