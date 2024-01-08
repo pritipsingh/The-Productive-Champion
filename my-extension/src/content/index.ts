@@ -1,18 +1,24 @@
 const websitesToBlock = [
-    "reddit",
-    "facebook",
-    "twitter",
-    "roblox",
-    "instagram",
-    "insta",
-    "netflix",
-    "amazon",
-    "facebook",
-    "hbo",
-
-    "hotstar",
-    "messenger",
+  "reddit",
+  "facebook",
+  "twitter",
+  "roblox",
+  "instagram",
+  "insta",
+  "netflix",
+  "amazon",
+  "facebook",
+  "hbo",
+  "hotstar",
+  "messenger",
 ];
+console.log("I am the ocntent scripttttt!!!");
+
+for (const name of websitesToBlock) {
+  if (window.location.hostname.includes(name)) {
+    let newNode = document.createElement("div");
+    newNode.id = `newid${Date.now()}`; // Unique ID based on timestamp
+    newNode.style.cssText = `
     for (const name of websitesToBlock) {
         if (window.location.hostname.includes(name)) {
             
@@ -29,12 +35,11 @@ const websitesToBlock = [
                 display:flex; 
                 justify-content: center;align-items: center;
             `;
-            newNode.innerHTML = `<div style="color: white; display:flex; justify-content: center;
+    newNode.innerHTML = `<div style="color: white; display:flex; justify-content: center;
             align-items: center;">it's your focus time. get back to work Now!!!!!!!!!!! : )</div>`;
-            document.body.style.overflow = "hidden";
-            document.body.appendChild(newNode);
-        }
-    }
+    document.body.style.overflow = "hidden";
+    document.body.appendChild(newNode);
+  }
+}
 
-export {}
-
+export {};
