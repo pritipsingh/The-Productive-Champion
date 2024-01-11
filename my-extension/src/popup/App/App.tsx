@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import logomain from './logomain1.png'
-import { eventNames } from 'process';
 import WebsiteEditPage from '../../components/WebsiteEditPage';
+import { useShowWebsiteEditPage } from '../../zustand/state';
+
 function App() {
+  const { showWebsiteEditPage, setShowWebsiteEditPage } = useShowWebsiteEditPage((state: any) => state) // zustand state for showing WebsiteEditPage
+
   const [isChecked, setIsChecked] = useState<boolean>(JSON.parse(localStorage.getItem('isChecked')!) || false);
   const [startTime, setStartTime] = useState(localStorage.getItem('startTime') || '');
   const [endTime, setEndTime] = useState(localStorage.getItem('endTime') || '');
+
   const handleToggle = () => {
     setIsChecked(!isChecked);
     console.log("value of check", isChecked);
 
     localStorage.setItem('isChecked', JSON.stringify(!isChecked));
-  };
-
-  const [showWebsiteEditPage, setShowWebsiteEditPage] = useState<boolean>(true)
-
-  const [newWebsiteName, setNewWebsiteName] = useState("")
+  }
 
   const handleStartTimeChange = (event: any) => {
-
     setStartTime(event.target.value);
   };
 
@@ -30,33 +29,28 @@ function App() {
   const handleFocusTime = () => {
     localStorage.setItem('startTime', startTime);
     localStorage.setItem('endTime', endTime);
-
-
   }
-  const data = {
 
+  const data = {
     startTime,
     endTime,
     isChecked
   }
+
   chrome?.runtime?.sendMessage({ event: 'onStart', data });
 
-
   const handleReset = () => {
-
     setStartTime('');
     setEndTime('');
     localStorage.setItem('startTime', '');
     localStorage.setItem('endTime', '');
-
   }
-  // console.log(websitesToBlock)
 
   const now = new Date();
   const currentTime = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
   if (showWebsiteEditPage) {
-    return (<WebsiteEditPage />)
+    return (<WebsiteEditPage />) //showing WebsiteEditPage
   } else {
     return (
       <div className="h-[100vh] relative mx-auto px-auto">
