@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import logomain from './logomain1.png'
 import { eventNames } from 'process';
 import CustomButton from '../../components/CustomButton';
 import CustomToggle from '../../components/CustomToggle';
 import CustomTimeInput from '../../components/CustomTimeInput';
 function App() {
+  const { showWebsiteEditPage, setShowWebsiteEditPage } = useShowWebsiteEditPage((state: any) => state) // zustand state for showing WebsiteEditPage
+
   const [isChecked, setIsChecked] = useState<boolean>(JSON.parse(localStorage.getItem('isChecked')!) || false);
   const [startTime, setStartTime] = useState(localStorage.getItem('startTime') || '');
   const [endTime, setEndTime] = useState(localStorage.getItem('endTime') || '');
+
   const handleToggle = () => {
     setIsChecked(!isChecked);
     localStorage.setItem('isChecked', JSON.stringify(!isChecked));
@@ -25,9 +28,8 @@ function App() {
   const handleFocusTime = () => {
     localStorage.setItem('startTime', startTime);
     localStorage.setItem('endTime', endTime);
-
-
   }
+
   const data = {
     startTime,
     endTime,
@@ -38,12 +40,10 @@ function App() {
   chrome.runtime.sendMessage({ event: 'onStart', data });
 
   const handleReset = () => {
-
     setStartTime('');
     setEndTime('');
     localStorage.setItem('startTime', '');
     localStorage.setItem('endTime', '');
-
   }
 
   const now = new Date();
