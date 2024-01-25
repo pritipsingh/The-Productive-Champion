@@ -21,8 +21,7 @@ async function getStorageValues() {
         const startTime = startTimeResult.startTime;
         const endTime = endTimeResult.endTime;
         const customWebsitesvToBlock= customWebsitesvToBlockResult.websitesToBlock
-        console.log("custommm", customWebsitesvToBlock);
-        // console.log(startTime, endTime)
+
         return { startTime, endTime, customWebsitesvToBlock}
     } catch (error) {
         console.error("Error retrieving storage values:", error);
@@ -30,7 +29,7 @@ async function getStorageValues() {
 }
 getStorageValues()
 export const value = chrome.runtime.onMessage.addListener((data) => {
-    console.log("data from popup", data);
+
   
     if(data.event === "onStart"){
         chrome.storage.local.set({ isChecked: JSON.stringify(data.data.isChecked) }).then(() => {
@@ -61,20 +60,13 @@ const blockFeature = async(isCheckedValue: any, currentTabData: any) => {
 
 
         console.log("Value currently is - isChecked", isCheckedValue);
-        // console.log("notinggggg", storageValues)
+
         if (isCheckedValue){
-        // for (const name of storageValues?.customWebsitesvToBlock){
-    
         
-        // if(currentTabData.url.includes(name)){
-
-        
-
             chrome.scripting.executeScript({
                 target: { tabId: currentTabData.id as any },
                 files: ['static/js/content.js'],
             });
-    //    } }
     return 1;
     } else {
             console.log("need not be blocked");

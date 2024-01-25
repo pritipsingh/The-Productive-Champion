@@ -13,25 +13,7 @@ export const alreadyBlockedWebsites = [
 ];
 console.log("I am the content scripttttt!!!");
 
-// const customWebsitesToBlock = localStorage.getItem("websitesToBlock")
-//   ? JSON.parse(localStorage.getItem("websitesToBlock")!)
-//   : [];
 
-// const websitesToBlock = [
-//   ...alreadyBlockedWebsites,
-//   ...customWebsitesToBlock,
-// ]; //list of all websites to block.
-
-// console.log("new block",customWebsitesToBlock);
-
-// const customWebsitesvToBlock=chrome.storage.local.get(["websitesToBlock"]).then((result) => {
-//   console.log("new", result);
-//   return result;
-// })
-// console.log("checkkkk",customWebsitesvToBlock,customWebsitesToBlock)
-// const customWebsitesvToBlockPromise= chrome.storage.local.get(["websitesToBlock"])
-
- // script.js
 chrome.storage.local.get(['websitesToBlock'], function(result) {
   console.log("star-1")
   const currentWebsite = window.location.hostname; // or any other method to get the current website
