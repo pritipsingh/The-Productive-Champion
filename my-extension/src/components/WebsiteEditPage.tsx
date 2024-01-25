@@ -13,6 +13,10 @@ export default function WebsiteEditPage() {
     const [showCustomBlockedWebsites, setShowCustomBlockedWebsites] = useState<boolean>(true) // websites that are 
 
     console.log(JSON.parse(localStorage.getItem('websitesToBlock')!))
+    let customWebsites = JSON.parse(localStorage.getItem('websitesToBlock')!)
+    console.log("new wesbties", customWebsites)
+    let data = [...customWebsites, ...alreadyBlockedWebsites]
+    chrome?.runtime?.sendMessage({ event: 'websitesToBlock', data });
 
     return (
         <section className="h-[100vh] relative mx-auto px-auto flex flex-col items-center">
