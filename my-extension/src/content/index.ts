@@ -13,14 +13,14 @@ export const alreadyBlockedWebsites = [
 ];
 console.log("I am the content scripttttt!!!");
 
-const customWebsitesToBlock = localStorage.getItem("websitesToBlock")
-  ? JSON.parse(localStorage.getItem("websitesToBlock")!)
-  : [];
+// const customWebsitesToBlock = localStorage.getItem("websitesToBlock")
+//   ? JSON.parse(localStorage.getItem("websitesToBlock")!)
+//   : [];
 
-const websitesToBlock = [
-  ...alreadyBlockedWebsites,
-  ...customWebsitesToBlock,
-]; //list of all websites to block.
+// const websitesToBlock = [
+//   ...alreadyBlockedWebsites,
+//   ...customWebsitesToBlock,
+// ]; //list of all websites to block.
 
 console.log(websitesToBlock)
 

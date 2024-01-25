@@ -11,10 +11,11 @@ async function getStorageValues() {
     try {
         const startTimePromise = chrome.storage.local.get(["startTime"]);
         const endTimePromise = chrome.storage.local.get(["endTime"]);
-
+        const customWebsitesvToBlockPromise= chrome.storage.local.get(["websitesToBlock"])
+        
         const startTimeResult = await startTimePromise;
         const endTimeResult = await endTimePromise;
-
+        const customWebsitesvToBlockResult: any = await customWebsitesvToBlockPromise;
         const startTime = startTimeResult.startTime;
         const endTime = endTimeResult.endTime;
         return { startTime, endTime }
@@ -41,7 +42,7 @@ export const value = chrome.runtime.onMessage.addListener((data) => {
 
 });
 
-const blockFeature = (isCheckedValue: any, currentTabData: any) => {
+const blockFeature = async(isCheckedValue: any, currentTabData: any) => {
     try {
         if (isCheckedValue) {
 
@@ -59,7 +60,7 @@ const blockFeature = (isCheckedValue: any, currentTabData: any) => {
 
 const tabActivity = (tab: any) => {
     chrome.tabs.get(tab, async (currentTabData) => {
-
+const range = await getStorageValues();
         chrome.storage.local.get(["isChecked"]).then((result) => {
             const isChecked = result.isChecked;
             const isCheckedValue = JSON.parse(isChecked);
