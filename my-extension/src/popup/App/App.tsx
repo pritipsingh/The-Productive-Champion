@@ -11,7 +11,9 @@ function App() {
   const [startTime, setStartTime] = useState(localStorage.getItem('startTime') || '');
   const [endTime, setEndTime] = useState(localStorage.getItem('endTime') || '');
 
+  //focus mode
   const handleToggle = () => {
+
     setIsChecked(!isChecked);
     localStorage.setItem('isChecked', JSON.stringify(!isChecked));
   };
@@ -24,6 +26,7 @@ function App() {
   const handleEndTimeChange = (event: any) => {
     setEndTime(event.target.value);
   };
+
 
   const handleFocusTime = () => {
     localStorage.setItem('startTime', startTime);
