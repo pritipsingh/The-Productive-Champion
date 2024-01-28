@@ -15,9 +15,7 @@ export default function WebsiteEditPage() {
     console.log(JSON.parse(localStorage.getItem('websitesToBlock')!))
     let customWebsites = JSON.parse(localStorage.getItem('websitesToBlock')!)
     console.log("new wesbties", customWebsites)
-    let data = [...customWebsites, ...alreadyBlockedWebsites]
-    chrome?.runtime?.sendMessage({ event: 'websitesToBlock', data });
-
+    let data = customWebsites ? [...customWebsites, ...alreadyBlockedWebsites] : [...alreadyBlockedWebsites];    chrome?.runtime?.sendMessage({ event: 'websitesToBlock', data });
     return (
         <section className="h-[100vh] relative mx-auto px-auto flex flex-col items-center">
             <div className='flex flex-row items-center gap-5 mt-4 justify-center'>
