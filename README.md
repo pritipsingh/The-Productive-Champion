@@ -28,7 +28,7 @@ The **Productive Champion** Chrome extension helps you stay focused by blocking 
 - Choose between manual blocking and setting time intervals for focus periods.
 
 - More features coming soon:
-  - Decide what websites to block
+  - Decide what websites to block - This is live 🎉
   - ADHD mode
   - Bookmarking links
   
