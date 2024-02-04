@@ -14,76 +14,49 @@ export default function WebsiteEditPage() {
     (state: any) => state
   ); // zustand state to check which page user is viewing.
 
-  const [newWebsiteName, setNewWebsiteName] = useState("");
-  const [showAlreadyBlockedWebsites, setShowAlreadyBlockedWebsites] =
-    useState<boolean>(); // websites that are already blocked (eg. reddit, insta etc.)
-  const [showCustomBlockedWebsites, setShowCustomBlockedWebsites] =
-    useState<boolean>(true); // websites that are
+    const [newWebsiteName, setNewWebsiteName] = useState("")
+    const [showAlreadyBlockedWebsites, setShowAlreadyBlockedWebsites] = useState<boolean>() // websites that are already blocked (eg. reddit, insta etc.)
+    const [showCustomBlockedWebsites, setShowCustomBlockedWebsites] = useState<boolean>(true) // websites that are 
 
-  console.log(JSON.parse(localStorage.getItem("websitesToBlock")!));
-  let customWebsites = JSON.parse(localStorage.getItem("websitesToBlock")!);
-  console.log("new wesbties", customWebsites);
-  let data = customWebsites
-    ? [...customWebsites, ...alreadyBlockedWebsites]
-    : [...alreadyBlockedWebsites];
-  chrome?.runtime?.sendMessage({ event: "websitesToBlock", data });
+    console.log(JSON.parse(localStorage.getItem('websitesToBlock')!))
+    let customWebsites = JSON.parse(localStorage.getItem('websitesToBlock')!)
+    console.log("new wesbties", customWebsites)
+    let data = [...customWebsites, ...alreadyBlockedWebsites]
+    chrome?.runtime?.sendMessage({ event: 'websitesToBlock', data });
 
-  return (
-    <section className="h-[100vh] relative mx-auto px-auto flex flex-col items-center">
-      <div className="flex flex-row items-center justify-center gap-5 mt-4">
-        <IoMdArrowBack
-          onClick={() => {
-            setShowWebsiteEditPage(false);
-          }}
-          className="-ml-8 cursor-pointer"
-          size={20}
-        />
-        <h2 className="font-bold underline">Websites to block</h2>
-      </div>
-      <div className="flex flex-col gap-1 mt-5 overflow-y-auto max-h-3/4">
-        <div
-          className={`flex flex-row items-center justify-center gap-2 cursor-pointer underline`}
-          onClick={() => {
-            setShowAlreadyBlockedWebsites(!showAlreadyBlockedWebsites);
-          }}
-        >
-          <span>Already blocked websites</span>
-          <IoMdArrowDropdown
-            size={20}
-            className={`${
-              showAlreadyBlockedWebsites ? "rotate-180" : "rotate-0"
-            }`}
-          />
-        </div>
-        {showAlreadyBlockedWebsites &&
-          alreadyBlockedWebsites.map((website: string) => (
-            <div className="flex flex-row items-center gap-3">
-              <div className="w-[20ch]">
-                <p className="">{website}</p>
-              </div>
+    return (
+        <section className="h-[100vh] relative mx-auto px-auto flex flex-col items-center">
+            <div className='flex flex-row items-center justify-center gap-5 mt-4'>
+                <IoMdArrowBack onClick={() => {
+                    setShowWebsiteEditPage(false)
+                }} className='-ml-8 cursor-pointer' size={20} />
+                <h2 className='font-bold underline'>Websites to block</h2>
             </div>
-          ))}
-        <div
-          className={`flex flex-row items-center justify-center gap-2 cursor-pointer underline`}
-          onClick={() => {
-            setShowCustomBlockedWebsites(!showCustomBlockedWebsites);
-          }}
-        >
-          <span>Custom blocked websites</span>
-          <IoMdArrowDropdown
-            size={20}
-            className={`${
-              showCustomBlockedWebsites ? "rotate-180" : "rotate-0"
-            }`}
-          />
-        </div>
-        {showCustomBlockedWebsites &&
-          customWebsitesToBlock.lenght !== 0 &&
-          customWebsitesToBlock.map((website: string) => (
-            <div className="flex flex-row items-center gap-3">
-              <div className="w-[20ch]">
-                <p>{website}</p>
-              </div>
+            <div className='flex flex-col gap-1 mt-5 overflow-y-auto max-h-3/4'>
+                <div className={`flex flex-row items-center justify-center gap-2 cursor-pointer underline`} onClick={() => {
+                    setShowAlreadyBlockedWebsites(!showAlreadyBlockedWebsites)
+                }}>
+                    <span>Already blocked websites</span>
+                    <IoMdArrowDropdown size={20} className={`${showAlreadyBlockedWebsites ? "rotate-180" : "rotate-0"}`} />
+                </div>
+                {showAlreadyBlockedWebsites && alreadyBlockedWebsites.map((website: string) => (
+                    <div className='flex flex-row items-center gap-3'>
+                        <div className='w-[20ch]'>
+                            <p className=''>{website}</p>
+                        </div>
+                    </div>
+                ))}
+                <div className={`flex flex-row items-center justify-center gap-2 cursor-pointer underline`} onClick={() => {
+                    setShowCustomBlockedWebsites(!showCustomBlockedWebsites)
+                }}>
+                    <span>Custom blocked websites</span>
+                    <IoMdArrowDropdown size={20} className={`${showCustomBlockedWebsites ? "rotate-180" : "rotate-0"}`} />
+                </div>
+                {showCustomBlockedWebsites && customWebsitesToBlock.lenght !== 0 && customWebsitesToBlock.map((website: string) => (
+                    <div className='flex flex-row items-center gap-3'>
+                        <div className='w-[20ch]'>
+                            <p>{website}</p>
+                        </div>
 
               <MdDelete
                 onClick={() => {

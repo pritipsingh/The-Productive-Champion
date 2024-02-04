@@ -1,12 +1,8 @@
-console.log("this is background scriptttt!!!!!")
-
 const getCurrentTime = () => {
     const now = new Date();
   
     const currentTime = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
-    console.log("my current time", currentTime);
     return currentTime;
-
 }
 
 async function getStorageValues() {
@@ -37,7 +33,8 @@ export const value = chrome.runtime.onMessage.addListener((data) => {
     });
 
     chrome.storage.local.set({ startTime: data.data.startTime }).then(() => {
-        console.log("Value is set- start time", data.data.startTime);
+        // Do something after the value is set
+        // Value is set- start time
     });
     chrome.storage.local.set({ endTime: data.data.endTime }).then(() => {
         console.log("Value is set- end time", data.data.endTime);
@@ -117,7 +114,6 @@ chrome.tabs.onActivated.addListener(function (tab) {
 });
 chrome.tabs.onUpdated.addListener(function (tab, changeInfo) {
     tabActivity(tab)
-    console.log(tab, changeInfo)
 });
 
 
