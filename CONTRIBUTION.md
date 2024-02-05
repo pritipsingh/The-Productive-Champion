@@ -18,6 +18,7 @@ Before you start contributing, please make sure you have the latest version of t
 
 2. Do :
    ```
+   cd The-Productive-Champion
    cd my-extension
    yarn install
    yarn build
