@@ -3,7 +3,7 @@ import {
   useShowWebsiteEditPage,
 } from "../zustand/state";
 import { MdDelete } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { alreadyBlockedWebsites } from "../content";
 import { IoMdArrowDropdown, IoMdArrowBack } from "react-icons/io";
 
@@ -15,13 +15,46 @@ export default function WebsiteEditPage() {
   ); // zustand state to check which page user is viewing.
 
     const [newWebsiteName, setNewWebsiteName] = useState("")
-    const [showAlreadyBlockedWebsites, setShowAlreadyBlockedWebsites] = useState<boolean>() // websites that are already blocked (eg. reddit, insta etc.)
+    const [showAlreadyBlockedWebsites, setShowAlreadyBlockedWebsites] = useState<boolean>(true) // websites that are already blocked (eg. reddit, insta etc.)
     const [showCustomBlockedWebsites, setShowCustomBlockedWebsites] = useState<boolean>(true) // websites that are 
+    const [alreadyBlockedWebsitesSet, setSlreadyBlockedWebsitesSet] = useState([])
+    const [hasOpened, setHasOpened] = useState<boolean | null>(JSON.parse(localStorage.getItem('hasOpened')!) ? JSON.parse(localStorage.getItem('hasOpened')!) : false)
+
+    console.log(hasOpened)
+
+    useEffect(() => {
+      // Load saved list from local storage or use the hardcoded list if none is found
+      const savedItems = JSON.parse(localStorage.getItem('alreadyBlockedWebsites')!);
+      if (savedItems && savedItems.length > 0) {
+        setSlreadyBlockedWebsitesSet(savedItems);
+      } else if(savedItems.length === 0 && hasOpened === false) {
+        setSlreadyBlockedWebsitesSet(alreadyBlockedWebsites as any);
+        setHasOpened(true)
+      }else if(savedItems.length === 0 && hasOpened === true) {
+        setSlreadyBlockedWebsitesSet([])
+      }
+    }, []);
+
+    useEffect(() => {
+      localStorage.setItem('hasOpened', JSON.stringify(true));
+
+    },[hasOpened])
+    useEffect(() => {
+      // Save the current list to local storage whenever it changes
+      localStorage.setItem('alreadyBlockedWebsites', JSON.stringify(alreadyBlockedWebsitesSet));
+    }, [alreadyBlockedWebsitesSet]);
+  
+    const deleteItem = (index: number) => {
+      const newAlreadyBlockedWebsitesSet = alreadyBlockedWebsitesSet.filter((item, i) => i !== index);
+      setSlreadyBlockedWebsitesSet(newAlreadyBlockedWebsitesSet);
+    };
+  
 
     console.log(JSON.parse(localStorage.getItem('websitesToBlock')!))
     let customWebsites = JSON.parse(localStorage.getItem('websitesToBlock')!)
     console.log("new wesbties", customWebsites)
-    let data = [...customWebsites, ...alreadyBlockedWebsites]
+    let data = customWebsites ? [...customWebsites, ...alreadyBlockedWebsitesSet] :  [...alreadyBlockedWebsitesSet];
+    
     chrome?.runtime?.sendMessage({ event: 'websitesToBlock', data });
 
     return (
@@ -30,20 +63,25 @@ export default function WebsiteEditPage() {
                 <IoMdArrowBack onClick={() => {
                     setShowWebsiteEditPage(false)
                 }} className='-ml-8 cursor-pointer' size={20} />
-                <h2 className='font-bold underline'>Websites to block</h2>
+                <h2 className='font-bold underline test-md'>Your Blocked Websites</h2>
             </div>
             <div className='flex flex-col gap-1 mt-5 overflow-y-auto max-h-3/4'>
                 <div className={`flex flex-row items-center justify-center gap-2 cursor-pointer underline`} onClick={() => {
                     setShowAlreadyBlockedWebsites(!showAlreadyBlockedWebsites)
                 }}>
-                    <span>Already blocked websites</span>
+                    <span>Customize your already blocked websites</span>
                     <IoMdArrowDropdown size={20} className={`${showAlreadyBlockedWebsites ? "rotate-180" : "rotate-0"}`} />
                 </div>
-                {showAlreadyBlockedWebsites && alreadyBlockedWebsites.map((website: string) => (
-                    <div className='flex flex-row items-center gap-3'>
-                        <div className='w-[20ch]'>
+                {showAlreadyBlockedWebsites && alreadyBlockedWebsitesSet.map((website, index) => (
+                    <div key={index} className='flex flex-row items-center gap-3'>
+                        <div className='w-[20ch] '>
                             <p className=''>{website}</p>
+                            
+                            
                         </div>
+                        <MdDelete
+                onClick={() => deleteItem(index)}
+              />
                     </div>
                 ))}
                 <div className={`flex flex-row items-center justify-center gap-2 cursor-pointer underline`} onClick={() => {
