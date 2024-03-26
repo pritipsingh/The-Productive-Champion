@@ -3,7 +3,7 @@ import {
   useShowWebsiteEditPage,
 } from "../zustand/state";
 import { MdDelete } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { alreadyBlockedWebsites } from "../content";
 import { IoMdArrowDropdown, IoMdArrowBack } from "react-icons/io";
 
