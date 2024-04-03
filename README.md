@@ -1,6 +1,6 @@
 # The Productive Champion Chrome Extension
 
-### PS Please note: It hasn't been published yet and it's under review by Chrome team and hopefully will be published soon :) You can clone it to test it out. Checkout the Contributions guide to learn how to make it work locally.
+### Try it out now: https://chromewebstore.google.com/detail/the-productive-champion/kmialbhbohkiikfknakekladobilojkg
 
 #### Leave a ⭐️ if you do try it out :)))
 
