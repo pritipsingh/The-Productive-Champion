@@ -15,8 +15,40 @@ export default function WebsiteEditPage() {
   ); // zustand state to check which page user is viewing.
 
   const [newWebsiteName, setNewWebsiteName] = useState("")
-  const [showAlreadyBlockedWebsites, setShowAlreadyBlockedWebsites] = useState<boolean>() // websites that are already blocked (eg. reddit, insta etc.)
+  const [showAlreadyBlockedWebsites, setShowAlreadyBlockedWebsites] = useState<boolean>(true) // websites that are already blocked (eg. reddit, insta etc.)
   const [showCustomBlockedWebsites, setShowCustomBlockedWebsites] = useState<boolean>(true) // websites that are 
+  const [alreadyBlockedWebsitesSet, setSlreadyBlockedWebsitesSet] = useState([])
+  const [hasOpened, setHasOpened] = useState<boolean | null>(JSON.parse(localStorage.getItem('hasOpened')!) ? JSON.parse(localStorage.getItem('hasOpened')!) : false)
+
+  console.log(hasOpened)
+
+  useEffect(() => {
+    // Load saved list from local storage or use the hardcoded list if none is found
+    const savedItems = JSON.parse(localStorage.getItem('alreadyBlockedWebsites')!);
+    if (savedItems && savedItems.length > 0) {
+      setSlreadyBlockedWebsitesSet(savedItems);
+    } else if (savedItems.length === 0 && hasOpened === false) {
+      setSlreadyBlockedWebsitesSet(alreadyBlockedWebsites as any);
+      setHasOpened(true)
+    } else if (savedItems.length === 0 && hasOpened === true) {
+      setSlreadyBlockedWebsitesSet([])
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('hasOpened', JSON.stringify(true));
+
+  }, [hasOpened])
+  useEffect(() => {
+    // Save the current list to local storage whenever it changes
+    localStorage.setItem('alreadyBlockedWebsites', JSON.stringify(alreadyBlockedWebsitesSet));
+  }, [alreadyBlockedWebsitesSet]);
+
+  const deleteItem = (index: number) => {
+    const newAlreadyBlockedWebsitesSet = alreadyBlockedWebsitesSet.filter((item, i) => i !== index);
+    setSlreadyBlockedWebsitesSet(newAlreadyBlockedWebsitesSet);
+  };
+
 
   console.log(JSON.parse(localStorage.getItem('websitesToBlock')!))
   let customWebsites = JSON.parse(localStorage.getItem('websitesToBlock')!)
