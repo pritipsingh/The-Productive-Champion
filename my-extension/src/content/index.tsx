@@ -31,10 +31,12 @@ chrome.storage.local.get(["websitesToBlock"], function (result) {
     currentWebsite.toLowerCase().includes(item.toLowerCase())
   );
 
-  if (restricExist) {
+  if (restricExist && !document.getElementById('restrict-overlay')) {
     const div = document.createElement("div");
+    div.id = 'restrict-overlay'
     document.body.style.overflow = "hidden";
     document.body.appendChild(div);
     ReactDOM.render(<Restrict />, div);
   }
 });
+//content script was running multiple times so added code to check if the restrict component is already rendered before adding a new one 
