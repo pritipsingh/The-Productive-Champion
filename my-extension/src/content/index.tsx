@@ -38,5 +38,7 @@ chrome.storage.local.get(["websitesToBlock"], function (result) {
     document.body.appendChild(div);
     ReactDOM.render(<Restrict />, div);
   }
+
+  document.title += ` | Focus Mode & Disable Notifications` //appended the text to the existing tab name by using tempelate literals to ensure the white spaces take effect
 });
 //content script was running multiple times so added code to check if the restrict component is already rendered before adding a new one 
