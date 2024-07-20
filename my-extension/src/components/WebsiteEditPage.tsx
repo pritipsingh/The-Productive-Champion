@@ -27,13 +27,18 @@ export default function WebsiteEditPage() {
     const savedItems = JSON.parse(localStorage.getItem('alreadyBlockedWebsites')!);
     if (savedItems && savedItems.length > 0) {
       setSlreadyBlockedWebsitesSet(savedItems);
-    } else if (savedItems.length === 0 && hasOpened === false) {
-      setSlreadyBlockedWebsitesSet(alreadyBlockedWebsites as any);
-      setHasOpened(true)
-    } else if (savedItems.length === 0 && hasOpened === true) {
-      setSlreadyBlockedWebsitesSet([])
+    } else {
+      // If savedItems is null, empty, or parsing failed
+      if (hasOpened) {
+        // If the app has been opened before, set to an empty array
+        setSlreadyBlockedWebsitesSet([]);
+      } else {
+        // If the app has not been opened before, use the hardcoded list and mark as opened
+        setSlreadyBlockedWebsitesSet(alreadyBlockedWebsites); // Assuming 'alreadyBlockedWebsites' is an array
+        setHasOpened(true); // This marks the initial setup as done
+      }
     }
-  }, []);
+  }, []); //this was different from the code in the deployment so copied the deployed code back which caused the edit websites to block to start working again
 
   useEffect(() => {
     localStorage.setItem('hasOpened', JSON.stringify(true));
