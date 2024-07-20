@@ -1,7 +1,11 @@
 import ReactDOM from "react-dom";
 import Restrict from "../components/Restrict";
 
-export const alreadyBlockedWebsites = [
+export interface defaultBlockedSites {
+  alreadyBlockedWebsites:string[]
+}
+// added an interface for the already blocked sites
+export const alreadyBlockedWebsites:defaultBlockedSites['alreadyBlockedWebsites'] = [
   "reddit",
   "facebook",
   "twitter",
