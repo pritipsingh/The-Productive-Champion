@@ -46,7 +46,7 @@ export default function WebsiteEditPage() {
       setHasOpened(true); // This marks the initial setup as done
       }
       }
-      }, []); //this was different from the code in the deployment so copied the deployed code back which caused the edit websites to block to start working again
+      }, []);
 
     useEffect(() => {
       localStorage.setItem('hasOpened', JSON.stringify(true));
