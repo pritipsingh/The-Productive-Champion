@@ -11,6 +11,7 @@ function App() {
   const [isChecked, setIsChecked] = useState<boolean>(JSON.parse(localStorage.getItem("isChecked")!) || false);
   const [startTime, setStartTime] = useState(localStorage.getItem("startTime") || "");
   const [endTime, setEndTime] = useState(localStorage.getItem("endTime") || "");
+  const [isFocusModeStarted, setIsFousModeStarted] = useState<boolean>(false);
 
   //#region Variables
   const now = new Date();
@@ -19,8 +20,7 @@ function App() {
 
   //#region Event Handlers
   const handleToggle = () => {
-    setIsChecked(!isChecked);
-    localStorage.setItem("isChecked", JSON.stringify(!isChecked));
+    setIsChecked((prev) => !prev);
   };
 
   const handleStartTimeChange = (value: string) => {
@@ -31,16 +31,9 @@ function App() {
     setEndTime(value);
   };
 
-  const handleFocusTime = () => {
-    localStorage.setItem("startTime", startTime);
-    localStorage.setItem("endTime", endTime);
-  };
-
   const handleReset = () => {
     setStartTime("");
     setEndTime("");
-    localStorage.setItem("startTime", "");
-    localStorage.setItem("endTime", "");
   };
 
   //#endregion Event Handlers
@@ -83,23 +76,29 @@ function App() {
       </header>
       <div className="flex justify-center items-center mt-5">
         {/* Save button for focus hours */}
-        <CustomButton onClick={handleFocusTime} label="Save Your Focus Hours" size="small" style={{ width: "10rem", height: "3rem" }} />
+        <CustomButton
+          onClick={() => setIsFousModeStarted(true)}
+          label="Save Your Focus Hours"
+          size="small"
+          style={{ width: "10rem", height: "3rem" }}
+        />
 
         {/* Reset Button for interval */}
         <CustomButton onClick={handleReset} label="Reset Time Interval" size="small" style={{ width: "10rem", height: "3rem" }} />
       </div>
       <div className="flex justify-center items-center mt-3">
-        {localStorage.getItem("startTime")?.trim().length! > 0 && localStorage.getItem("endTime")?.trim().length! > 0 ? (
-          startTime <= currentTime && endTime >= currentTime ? (
-            <p className="text-[0.5rem]">You're in focus mode currently</p>
-          ) : (
-            <p className="text-[0.5rem]">Focus Mode Starting soon...</p>
-          )
-        ) : null}
+        {isFocusModeStarted && startTime && endTime && startTime <= currentTime && endTime >= currentTime ? (
+          <p className="text-sm">
+            You're in <span className="font-semibold">focus mode</span> currently
+          </p>
+        ) : (
+          <p className="text-sm">
+            <span className="font-semibold">Focus Mode</span> starting soon...
+          </p>
+        )}
       </div>
 
       {/* Footer */}
-
       <div className="p-2  flex text-center mx-auto px-auto  justify-center items-center flex-col">
         <p className="font-sans  text-gray-800">
           Focus mode <span className="font-bold">ON</span> means, blocking distracting websites.{" "}
