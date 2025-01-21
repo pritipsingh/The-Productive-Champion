@@ -51,7 +51,7 @@ function App() {
     <WebsiteEditPage />
   ) : (
     <div className="h-screen flex  flex-col items-center">
-      <div className=" w-1/2  text-center  rounded-lg mt-5">
+      <div className=" w-1/2  text-center  rounded-lg mt-4">
         <img src={Logo} alt="logo" />
       </div>
       <div className="flex justify-center items-center mt-2">
@@ -66,7 +66,7 @@ function App() {
       </div>
 
       {/* The time interval for setting focus hours */}
-      <p className="text-[1rem] text-gray-800 flex justify-center  font-sans font-semibold mt-5">Set Your Focus Hours</p>
+      <p className="text-[1rem] text-gray-800 flex justify-center  font-sans font-semibold mt-3">Set Your Focus Hours</p>
       <header className="mt-5 flex gap-2 justify-center items-center">
         {/* Set Start Time */}
         <CustomTimeInput label="Start Time" timeValue={startTime} handleTimeChange={handleStartTimeChange} />
@@ -86,7 +86,7 @@ function App() {
         {/* Reset Button for interval */}
         <CustomButton onClick={handleReset} label="Reset Time Interval" size="small" style={{ width: "10rem", height: "3rem" }} />
       </div>
-      <div className="flex justify-center items-center mt-3">
+      <div className="flex justify-center items-center mt-1">
         {isFocusModeStarted && startTime && endTime && startTime <= currentTime && endTime >= currentTime ? (
           <p className="text-sm">
             You're in <span className="font-semibold">focus mode</span> currently
