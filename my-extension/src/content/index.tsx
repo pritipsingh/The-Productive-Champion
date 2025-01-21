@@ -2,10 +2,10 @@ import ReactDOM from "react-dom";
 import Restrict from "../components/Restrict";
 
 export interface defaultBlockedSites {
-  alreadyBlockedWebsites:string[]
+  alreadyBlockedWebsites: string[];
 }
 // added an interface for the already blocked sites
-export const alreadyBlockedWebsites:defaultBlockedSites['alreadyBlockedWebsites'] = [
+export const alreadyBlockedWebsites: defaultBlockedSites["alreadyBlockedWebsites"] = [
   "reddit",
   "facebook",
   "twitter",
@@ -20,24 +20,24 @@ export const alreadyBlockedWebsites:defaultBlockedSites['alreadyBlockedWebsites'
 ];
 console.log("I am the content scripttttt!!!");
 
-chrome.storage.local.get(["websitesToBlock"], function (result) {
-  console.log("star-1");
-  const currentWebsite = window.location.hostname; // or any other method to get the current website
+// chrome.storage.local.get(["websitesToBlock"], function (result) {
+//   console.log("star-1");
+//   const currentWebsite = window.location.hostname; // or any other method to get the current website
 
-  const websitesList = result.websitesToBlock || [];
-  console.log("from cotent", result.websitesToBlock);
+//   const websitesList = result.websitesToBlock || [];
+//   console.log("from cotent", result.websitesToBlock);
 
-  const restricExist = websitesList.some((item: string) =>
-    currentWebsite.toLowerCase().includes(item.toLowerCase())
-  );
+//   const restricExist = websitesList.some((item: string) =>
+//     currentWebsite.toLowerCase().includes(item.toLowerCase())
+//   );
 
-  if (restricExist && !document.getElementById('restrict-overlay')) {
-    const div = document.createElement("div");
-    div.id = 'restrict-overlay'
-    document.body.style.overflow = "hidden";
-    document.body.appendChild(div);
-    ReactDOM.render(<Restrict />, div);
-  }
+//   if (restricExist && !document.getElementById('restrict-overlay')) {
+//     const div = document.createElement("div");
+//     div.id = 'restrict-overlay'
+//     document.body.style.overflow = "hidden";
+//     document.body.appendChild(div);
+//     ReactDOM.render(<Restrict />, div);
+//   }
 
-  document.title += ` | Focus Mode & Disable Notifications` //Append text to the tab name
-});
+//   document.title += ` | Focus Mode & Disable Notifications` //Append text to the tab name
+// });

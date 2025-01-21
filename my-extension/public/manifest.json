@@ -1,15 +1,16 @@
 {
   "manifest_version": 3,
   "name": "The Productive Champion",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Use this to set your focus hours instantly and block out all your social medias. More modes like ADHD and all coming soon",
-  
+
   "background": {
-    "service_worker": "./static/js/background.js"  },
-  
+    "service_worker": "./static/js/background.js"
+  },
+
   "action": {
     "default_popup": "index.html",
-    "default_icon" : "logo1.png"
+    "default_icon": "logo1.png"
   },
   "permissions": ["storage", "tabs", "activeTab", "scripting"],
   "host_permissions": ["https://*/*"]
