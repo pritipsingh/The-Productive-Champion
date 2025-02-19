@@ -2,18 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
 body {
   margin: 0;
   padding: 0;
-  background-image: url('./background1.jpeg');
+  background-image: url("./popup/App/Assets/Background.jpeg");
   background-size: cover;
   width: 350px;
   height: 600px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 code {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
